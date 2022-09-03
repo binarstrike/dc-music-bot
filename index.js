@@ -8,10 +8,8 @@ const { Player } = require("discord-player")
 //dotenv.config()
 
 const TOKEN = process.env.TOKEN
-const SERVER_ID = process.env.SERVER_ID || "965994012542644284"
-const APPLICATION_ID = process.env.APPLICATION_ID || "983689771392069692"
-
-const BOTNAME = "Ayaya"
+const SERVER_ID = process.env.SERVER_ID
+const APPLICATION_ID = process.env.APPLICATION_ID
 
 const LOAD_SLASH = process.argv[2] == "load"
 
@@ -34,6 +32,7 @@ client.player = new Player(client, {
 })
 
 let commands = []
+const CURR_DIR = __dirname
 
 const slashFiles = fs.readdirSync(`${CURR_DIR}/slash`).filter(file => file.endsWith(".js"))
 for (const file of slashFiles){
