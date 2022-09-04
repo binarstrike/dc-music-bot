@@ -1,0 +1,7 @@
+node_modules
+.env
+botname
+count
+log.txt
+status
+pid
