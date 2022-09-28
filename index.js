@@ -10,8 +10,11 @@ const { Player } = require("discord-player")
 const TOKEN = process.env.TOKEN
 const SERVER_ID = process.env.SERVER_ID
 const APPLICATION_ID = process.env.APPLICATION_ID
+const IS_LOAD = process.env.LOAD
 
-const LOAD_SLASH = process.argv[2] == "load"
+const LOAD_SLASH = IS_LOAD == "load" ? true : false
+
+//const LOAD_SLASH = process.argv[2] == "load"
 
 const CLIENT_ID = APPLICATION_ID
 const GUILD_ID = SERVER_ID
