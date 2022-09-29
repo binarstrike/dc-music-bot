@@ -3,6 +3,7 @@ count
 log.txt
 status
 pid
+test script
 # Logs
 logs
 *.log
