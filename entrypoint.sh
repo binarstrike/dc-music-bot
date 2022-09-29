@@ -1,40 +1,30 @@
-showHelp() {
-	echo "--help | -h => menampilkan pesan help ini"
-	echo "SERVER_ID APPLICATION_ID TOKEN"
-	echo "note : pakai tanda kutip untuk TOKEN"
-	echo "ex : docker run -dit --name=container-name dc-music-bot:me 3445454345 34636566534 \"hfsbvfhg.fhwguyuie-fj\""
-	echo "jika di server discord slash command tidak muncul tambah kan paramaeter 'load' di akhir perintah"
-	echo "ex : docker run -dit --name=container-name dc-music-bot:me 3445454345 34636566534 \"hfsbvfhg.fhwguyuie-fj\" load"
-}
+#!/bin/bash
 
-if [ -z $1 ]; then
-	echo "error parameter kosong"
-	showHelp
-	exit 1
-fi
+read -rd '' BANNER_HELP << EOM
+-h, --help \t\t\t menampilkan pesan help ini.
+\n-s, --server-id <server_id> \t id server atau guild.
+\n-a, --app-id <app_id> \t\t application id atau id dari bot.
+\n-t, --token <token> \t\t bot token.
+\n-l, --load-slash \t\t load slash command pada server, untuk pertama kali
+\n\t\t\t\t saja atau jika slash command tidak tampil pada server.
+EOM
 
+[ -z "$@" ] && echo -ne $BANNER_HELP || true
 
+VALID_ARGS=$(getopt -o hs:a:t: --long help,server-id:,app-id:,token: -- "$@")
 
-case "$1" in
-	--help|-h|h)
-		showHelp
-	;;
-esac
+eval set -- "$VALID_ARGS"
 
-
-
-
-export SERVER_ID=$1
-export APPLICATION_ID=$2
-export TOKEN=$3
-if [ ! -z $4 ] && test $4 = "load"; then
-	export LOAD="load"
-	cd /bot
-	/bin/bash service.sh
-	unset LOAD
-	/bin/bash service.sh
-
-else
-	cd /bot
-	/bin/bash service.sh
-fi
+while [ : ]; do
+    case "$1" in
+        -h | --help)
+            echo -ne $BANNER_HELP; shift ;;
+        -s | --server-id)
+            export SERVER_ID=$2; shift 2 ;;
+        -a | --app-id)
+            export APPLICATION_ID=$2; shift 2 ;;
+        -t | --token)
+            export TOKEN=$2; shift 2 ;;
+        --) shift; break ;;
+    esac
+done
