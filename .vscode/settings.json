@@ -1,0 +1,11 @@
+{
+    "[javascript]": {
+        "editor.maxTokenizationLineLength": 2500,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnPaste": false, // required 
+        "editor.formatOnType": false, // required
+        "editor.formatOnSave": true, // optional 
+        "editor.formatOnSaveMode": "file",
+        "editor.tabSize": 4,
+    }
+}
