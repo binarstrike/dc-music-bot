@@ -19,5 +19,10 @@
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "ytdl-core": "latest"
+  },
+  "devDependencies": {
+    "eslint": "^8.28.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.0"
   }
 }
