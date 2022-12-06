@@ -1,4 +1,4 @@
-# memakai image node versi 16 dengan
+# memakai image node versi 16
 FROM node:16-bullseye-slim
 
 # membuat folder /bot dan menjadikan nya folder yang aktif sekarang
