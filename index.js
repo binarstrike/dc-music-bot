@@ -59,7 +59,7 @@ if (LOAD_SLASH) {
 else {
     client.on("ready", () => {
         console.log(`Logged in as ${client.user.tag}`)
-        fs.writeFileSync("botname", client.user.tag)
+        fs.writeFile("botname", client.user.tag, (err) => console.log(err))
     })
     client.on("interactionCreate", (interaction) => {
         async function handleCommand() {
