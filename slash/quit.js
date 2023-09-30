@@ -7,8 +7,7 @@ module.exports = {
   run: async ({ client, interaction }) => {
     const queue = client.player.getQueue(interaction.guildId);
 
-    if (!queue)
-      return await interaction.editReply("There are no songs in the queue");
+    if (!queue) return await interaction.editReply("There are no songs in the queue");
 
     queue.destroy();
     await interaction.editReply("Bye!");
