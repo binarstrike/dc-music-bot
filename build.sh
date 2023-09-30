@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build --tag dc-music-bot:me .
+docker build --tag dc-music-bot:latest .

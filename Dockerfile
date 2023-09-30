@@ -1,21 +1,25 @@
-# memakai image node versi 16
-FROM node:16-bullseye-slim
+FROM node:18-alpine as build-deps
 
-# membuat folder /bot dan menjadikan nya folder yang aktif sekarang
-WORKDIR /bot
+WORKDIR /temp/build-deps
 
-# menyalin semua file dan folder ke docker container
-COPY . .
+RUN apk add build-base python3 --no-cache
 
-# update list package dan menginstall ffmpeg
-RUN apt-get update \
-    apt-get install --no-install-recommends ffmpeg curl -y \
-    apt-get clean \
-    rm -rvf /var/cache/apt/archives /var/lib/apt
+COPY ./package.json ./package-lock.json ./
+RUN npm install --omit=dev --frozen-lockfile --verbose
 
-# install node module
-RUN npm install \
-    npm cache clean --force
+FROM node:18-alpine
 
-# set entrypoint script
-ENTRYPOINT ["/bin/bash","/bot/entrypoint.sh"]
+ENV APP_DIR=/opt/dc-music-bot
+
+WORKDIR ${APP_DIR}
+
+RUN apk add ffmpeg --no-cache
+
+COPY --from=build-deps /temp/build-deps/node_modules ./node_modules
+
+COPY ./slash ./slash
+COPY ./index.js .
+
+COPY ./bot-entrypoint.sh /usr/local/bin/bot-entrypoint.sh
+
+ENTRYPOINT ["bot-entrypoint.sh"]

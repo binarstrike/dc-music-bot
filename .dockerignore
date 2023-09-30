@@ -1,9 +1,9 @@
+.devcontainer
+.gitignore
+.vscode
 node_modules
-.env
-botname
-count
-log.txt
-status
-pid
-note.txt
-test script
+.prettierrc.json
+build.sh
+Dockerfile
+*.md
+service.sh
